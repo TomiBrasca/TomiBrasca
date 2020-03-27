@@ -1,7 +1,7 @@
-var User = localStorage.getItem("username");
+var user = localStorage.getItem("username");
 if (User == null) {
   localStorage.setItem("username", window.prompt("Please input your name"));
-  User = localStorage.getItem("username");
+  user = localStorage.getItem("username");
 } else {
   alert("Hello " + User);
 }
@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("connect", () => {
     document.querySelector("button").onclick = function() {
       const selection = document.getElementById("inp").value;
-      socket.emit("submit msg", { selection: selection });
+      const room = document.getElementById("room").value;
+      socket.emit("join", { selection: selection, room : room, user : user });
     };
   });
 
